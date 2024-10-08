@@ -2,6 +2,7 @@ import { Header } from '@/widgets/Header';
 import { Aside } from '@/widgets/Aside';
 import { useCallback, useState } from 'react';
 import { ModalWrapper } from '@/shared/ui';
+import { CreateServiceForm } from '@/features/CreateService';
 
 export default function Main() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
@@ -31,13 +32,14 @@ export default function Main() {
       {/* Create service modal */}
       {isCreateModalOpen && (
         <ModalWrapper closeHandler={createHandler}>
-          <div></div>
+          <CreateServiceForm />
         </ModalWrapper>
       )}
 
       {/* Remove service modal */}
       {isRemoveModalOpen && (
         <ModalWrapper closeHandler={removeHandler}>
+          {/* TODO: Сделать форму удаления в features */}
           <div></div>
         </ModalWrapper>
       )}
