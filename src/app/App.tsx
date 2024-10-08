@@ -1,5 +1,8 @@
+import './styles/index';
+import { Main } from '@/pages/Main';
+
 function App() {
-  return <div>asd</div>;
+  return <Main />;
 }
 
 export default App;
