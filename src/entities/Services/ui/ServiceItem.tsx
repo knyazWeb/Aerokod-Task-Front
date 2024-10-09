@@ -1,7 +1,9 @@
-import { Eye, EyeOff, Copy } from 'lucide-react';
+import { Eye, EyeOff, Copy, Trash } from 'lucide-react';
 import { cn } from '@/shared/lib';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
+import { ModalWrapper } from '@/shared/ui';
+import { RemoveServiceForm } from '@/features/RemoveService';
 
 interface ServiceItemProps {
   serviceName: string;
@@ -16,10 +18,16 @@ export default function ServiceItem({
 }: ServiceItemProps) {
   const [isPasswordHidden, setIsPasswordHidden] = useState<boolean>(true);
   const [lastCopyTime, setLastCopyTime] = useState<number>(0);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState<boolean>(false);
 
   const hiddenPassword = useMemo(() => {
     return '*'.repeat(servicePassword.length);
   }, [servicePassword]);
+
+  // Обработчик модалки удаления
+  const removeHandler = useCallback(() => {
+    setIsRemoveModalOpen((prevState) => !prevState);
+  }, []);
 
   // Обработчик кнопки для показа пароля
   const showPasswordHandler = () => {
@@ -46,21 +54,36 @@ export default function ServiceItem({
   };
 
   return (
-    <div className={cn('flex justify-between items-center', className)}>
-      <p>{serviceName}</p>
-      <div className='flex items-center justify-between gap-4'>
-        <p className={cn('pt-1', { 'tracking-[0.15em]': isPasswordHidden })}>
-          {isPasswordHidden ? hiddenPassword : servicePassword}
-        </p>
+    <>
+      <div className={cn('flex justify-between items-center', className)}>
+        <p>{serviceName}</p>
         <div className='flex items-center justify-between gap-4'>
-          <button onClick={showPasswordHandler}>
-            {isPasswordHidden ? <Eye /> : <EyeOff />}
-          </button>
-          <button onClick={() => copyToClipboardHandler(servicePassword)}>
-            <Copy />
-          </button>
+          <p className={cn('pt-1', { 'tracking-[0.15em]': isPasswordHidden })}>
+            {isPasswordHidden ? hiddenPassword : servicePassword}
+          </p>
+          <div className='flex items-center justify-between gap-4'>
+            <button onClick={showPasswordHandler}>
+              {isPasswordHidden ? <Eye /> : <EyeOff />}
+            </button>
+            <button onClick={() => copyToClipboardHandler(servicePassword)}>
+              <Copy />
+            </button>
+            <button onClick={removeHandler}>
+              <Trash />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Remove service modal */}
+      {isRemoveModalOpen && (
+        <ModalWrapper closeHandler={removeHandler}>
+          <RemoveServiceForm
+            closeModalHandler={removeHandler}
+            service={{ service: serviceName, password: servicePassword }}
+          />
+        </ModalWrapper>
+      )}
+    </>
   );
 }

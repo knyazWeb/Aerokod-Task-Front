@@ -1,7 +1,7 @@
 import { Lock, Delete } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Input } from '@/shared/ui';
-import * as React from 'react';
+
 
 interface HeaderProps {
   searchValue: string;
@@ -27,7 +27,7 @@ const Header = ({ searchValue, setSearchValue }: HeaderProps) => {
             maxLength={70}
             placeholder={'Write your service...'}
             value={searchValue}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setSearchValue(e.currentTarget.value)
             }
             className={'text-xl py-4 pr-12'}

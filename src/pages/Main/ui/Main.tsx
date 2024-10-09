@@ -7,15 +7,10 @@ import { ServicesPanel } from '@/widgets/ServicesPanel';
 
 export default function Main() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
-  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
 
   const createHandler = useCallback(() => {
     setIsCreateModalOpen((prevState) => !prevState);
-  }, []);
-
-  const removeHandler = useCallback(() => {
-    setIsRemoveModalOpen((prevState) => !prevState);
   }, []);
 
   return (
@@ -28,7 +23,6 @@ export default function Main() {
         <div className='grid grid-cols-[100px_1fr] grid-rows-1'>
           <Aside
             createHandler={createHandler}
-            removeHandler={removeHandler}
           />
           <ServicesPanel searchValue={searchValue} />
         </div>
@@ -38,14 +32,6 @@ export default function Main() {
       {isCreateModalOpen && (
         <ModalWrapper closeHandler={createHandler}>
           <CreateServiceForm closeModalHandler={createHandler} />
-        </ModalWrapper>
-      )}
-
-      {/* Remove service modal */}
-      {isRemoveModalOpen && (
-        <ModalWrapper closeHandler={removeHandler}>
-          {/* TODO: Сделать форму удаления в features */}
-          <div></div>
         </ModalWrapper>
       )}
     </>
