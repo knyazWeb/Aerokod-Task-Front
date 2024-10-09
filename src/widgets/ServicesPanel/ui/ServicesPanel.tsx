@@ -21,8 +21,8 @@ export default function ServicesPanel({ searchValue }: ServicesPanelProps) {
       <div className='w-3/4 flex flex-col border-gray-400 border-2 rounded-lg'>
         {filteredServices.length > 0 && (
           <div className='flex justify-between items-center border-b-2 border-gray-400 py-1 px-5 pr-[140px]'>
-            <span>Service name</span>
-            <span>Password</span>
+            <span className='text-gray-600 italic text-lg'>Service name</span>
+            <span className='text-gray-600 italic text-lg'>Password</span>
           </div>
         )}
         {filteredServices.length > 0 ? (
@@ -35,7 +35,7 @@ export default function ServicesPanel({ searchValue }: ServicesPanelProps) {
             />
           ))
         ) : (
-          <div className='py-4 px-5 text-center text-lg font-bold'>No services found</div>
+          <div className='py-4 px-5 text-center text-2xl font-bold'>No services</div>
         )}
       </div>
     </section>

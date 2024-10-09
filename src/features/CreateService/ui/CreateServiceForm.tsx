@@ -19,7 +19,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
   const [isUseSymbols, setIsUseSymbols] = useState<boolean>(true);
   const [isUseSpecialCharacters, setIsUseSpecialCharacters] = useState<boolean>(true);
   const [caseOption, setCaseOption] = useState<string>('random');
-  const [isOwnPassword, setIsOwnPassword] = useState<boolean>(true);
+  const [isOwnPassword, setIsOwnPassword] = useState<boolean>(false);
   const [generatedPassword, setGeneratedPassword] = useState<string>('');
 
   const { createServiceHandler } = useServices();
@@ -187,7 +187,8 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
         <label htmlFor='case-select'>Выберите регистр:</label>
         <select
           id='case-select'
-          className='bg-transparent font-bold'
+          disabled={isOwnPassword}
+          className='bg-transparent font-bold disabled:text-gray-400'
           value={caseOption}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => setCaseOption(e.target.value)}
         >

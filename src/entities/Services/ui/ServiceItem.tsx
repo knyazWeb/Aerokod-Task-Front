@@ -56,20 +56,24 @@ export default function ServiceItem({
   return (
     <>
       <div className={cn('flex justify-between items-center', className)}>
-        <p>{serviceName}</p>
+        <p className='font-bold text-xl'>{serviceName}</p>
         <div className='flex items-center justify-between gap-4'>
           <p className={cn('pt-1', { 'tracking-[0.15em]': isPasswordHidden })}>
             {isPasswordHidden ? hiddenPassword : servicePassword}
           </p>
           <div className='flex items-center justify-between gap-4'>
             <button onClick={showPasswordHandler}>
-              {isPasswordHidden ? <Eye /> : <EyeOff />}
+              {isPasswordHidden ? (
+                <Eye className='text-black hover:text-green-700 duration-200 ease-in-out transition-colors' />
+              ) : (
+                <EyeOff className='text-black hover:text-yellow-700 duration-200 ease-in-out transition-colors' />
+              )}
             </button>
             <button onClick={() => copyToClipboardHandler(servicePassword)}>
-              <Copy />
+              <Copy className='text-black hover:text-blue-600 duration-200 ease-in-out transition-colors' />
             </button>
             <button onClick={removeHandler}>
-              <Trash />
+              <Trash className='text-black hover:text-red-600 duration-200 ease-in-out transition-colors' />
             </button>
           </div>
         </div>

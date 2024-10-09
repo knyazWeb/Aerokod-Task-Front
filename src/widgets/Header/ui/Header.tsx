@@ -30,13 +30,13 @@ const Header = ({ searchValue, setSearchValue }: HeaderProps) => {
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setSearchValue(e.currentTarget.value)
             }
-            className={'text-xl py-4 pr-12'}
+            className='text-xl py-4 pr-12 border-2 border-gray-500 focus:border-accentYellow focus:border-2'
           />
           <button
             onClick={() => setSearchValue('')}
             className='absolute right-3 top-1/2 transform -translate-y-1/2'
           >
-            <Delete />
+            <Delete className='text-black hover:text-zinc-500 duration-200 ease-in-out transition-colors' />
           </button>
         </div>
       </div>

@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         accentGreen: '#128350',
+        accentYellow: '#E9D38A',
         white: '#f1f1f1',
         mainBG: '#e5e4e4',
         modalOverlay: 'rgba(0 0 0 / 20%)',

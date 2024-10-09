@@ -15,7 +15,7 @@ const Aside = ({ createHandler }: AsideProps) => {
         >
           <CirclePlus
             size={60}
-            color='#fff'
+            className='text-white hover:text-accentYellow duration-200 ease-in-out transition-colors'
           />
         </button>
       </div>
