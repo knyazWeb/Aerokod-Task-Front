@@ -1,12 +1,20 @@
 import { Button, Input } from '@/shared/ui';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { CreateServiceFormFields } from './CreateServiceForm.types';
+import { createService } from '@/entities/Services';
+import toast from 'react-hot-toast';
+import { useServices } from '@/app/providers/ServicesProvider';
 
-export default function CreateServiceForm() {
+interface CreateServiceFormProps {
+  closeModalHandler: () => void;
+}
+
+export default function CreateServiceForm({ closeModalHandler }: CreateServiceFormProps) {
+  const { servicesHandler } = useServices();
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
   } = useForm<CreateServiceFormFields>({
     defaultValues: {
       service: '',
@@ -14,8 +22,18 @@ export default function CreateServiceForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<CreateServiceFormFields> = async (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<CreateServiceFormFields> = async (service) => {
+    try {
+      const createServiceResponse = await createService(service);
+      if (createServiceResponse) {
+        servicesHandler(createServiceResponse);
+        toast.success('Service added successfully');
+      }
+    } catch {
+      toast.error("Service didn't add successfully");
+    } finally {
+      closeModalHandler();
+    }
   };
 
   return (
@@ -58,7 +76,7 @@ export default function CreateServiceForm() {
         )}
       />
 
-      <Button disabled={!isValid}>Create</Button>
+      <Button disabled={!isValid || isSubmitting}>Create</Button>
     </form>
   );
 }

@@ -6,6 +6,7 @@ export default {
       colors: {
         accentGreen: '#128350',
         white: '#f1f1f1',
+        mainBG: '#e5e4e4',
         modalOverlay: 'rgba(0 0 0 / 20%)',
       },
       height: {

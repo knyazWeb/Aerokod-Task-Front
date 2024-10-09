@@ -3,6 +3,7 @@ import { Aside } from '@/widgets/Aside';
 import { useCallback, useState } from 'react';
 import { ModalWrapper } from '@/shared/ui';
 import { CreateServiceForm } from '@/features/CreateService';
+import { ServicesPanel } from '@/widgets/ServicesPanel';
 
 export default function Main() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
@@ -25,14 +26,14 @@ export default function Main() {
             createHandler={createHandler}
             removeHandler={removeHandler}
           />
-          <section></section>
+          <ServicesPanel />
         </div>
       </main>
 
       {/* Create service modal */}
       {isCreateModalOpen && (
         <ModalWrapper closeHandler={createHandler}>
-          <CreateServiceForm />
+          <CreateServiceForm closeModalHandler={createHandler} />
         </ModalWrapper>
       )}
 

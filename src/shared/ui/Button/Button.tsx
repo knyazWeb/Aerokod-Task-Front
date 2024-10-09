@@ -9,8 +9,8 @@ export default function Button({ className, children, ...props }: ButtonProps) {
       {...props}
       className={cn(
         'w-full bg-accentGreen px-5 py-2 text-white text-base' +
-        ' disabled:bg-gray-300 disabled:text-gray-600' +
-          ' rounded-lg ',
+          ' disabled:bg-gray-300 disabled:text-gray-600' +
+          ' rounded-lg duration-200 ease-in-out transition-all',
         className,
       )}
     >
