@@ -23,6 +23,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
   });
 
   const onSubmit: SubmitHandler<CreateServiceFormFields> = async (service) => {
+    const loadingToastId = toast.loading('Loading...');
     try {
       const createServiceResponse = await createService(service);
       if (createServiceResponse) {
@@ -32,6 +33,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
     } catch {
       toast.error("Service didn't add successfully");
     } finally {
+      toast.dismiss(loadingToastId);
       closeModalHandler();
     }
   };
@@ -67,10 +69,11 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
         render={({ field }) => (
           <Input
             label={'Create a password'}
-            type={'password'}
+            type={'text'}
+            // type={'password'}
             placeholder={'password'}
+            autoComplete='off'
             error={errors.password?.message}
-            autoComplete={'off'}
             {...field}
           />
         )}
