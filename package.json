@@ -1,5 +1,6 @@
 {
   "name": "aerokod-task",
+  "homepage": "https://knyazWeb.github.io/Aerokod-Task-Front/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +12,13 @@
     "lint:fix": "eslint . --fix",
     "format:check": "npx prettier . --check",
     "format": "npx prettier . --write",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "gh-pages": "^6.1.1",
     "lucide-react": "^0.451.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

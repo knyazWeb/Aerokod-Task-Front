@@ -66,7 +66,6 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
 
   const onSubmit: SubmitHandler<CreateServiceFormFields> = async (service) => {
     const loadingToastId = toast.loading('Loading...');
-    console.log(service.password);
     try {
       const createServiceResponse = await createService(service);
       if (createServiceResponse) {
