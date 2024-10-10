@@ -7,6 +7,7 @@ import { useServices } from '@/app/providers/ServicesProvider';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { CustomCheckbox } from '@/shared/ui/CustomCheckbox/CustomCheckbox.tsx';
 import { generatePassword } from '../lib/generatePassword';
+import { checkUniqueSymbols } from '../lib/checkUniqueSymbols.ts';
 
 interface CreateServiceFormProps {
   closeModalHandler: () => void;
@@ -71,11 +72,6 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
       toast.dismiss(loadingToastId);
       closeModalHandler();
     }
-  };
-
-  const checkUniqueSymbols = (value: string) => {
-    const uniqueSymbols = new Set(value);
-    return uniqueSymbols.size === value.length;
   };
 
   return (
