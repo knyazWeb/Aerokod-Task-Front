@@ -19,8 +19,8 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
   const [isUseSymbols, setIsUseSymbols] = useState<boolean>(true);
   const [isUseSpecialCharacters, setIsUseSpecialCharacters] = useState<boolean>(true);
   const [caseOption, setCaseOption] = useState<string>('random');
-  const [isOwnPassword, setIsOwnPassword] = useState<boolean>(false);
-  const [generatedPassword, setGeneratedPassword] = useState<string>('');
+  const [isOwnSymbols, setIsOwnSymbols] = useState<boolean>(false);
+  const [symbolsInputValue, setSymbolsInputValue] = useState<string>('');
 
   const { createServiceHandler } = useServices();
   const {
@@ -43,25 +43,18 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
       isUseSymbols,
       isUseSpecialCharacters,
       caseOption as 'random' | 'lowercase' | 'uppercase',
+      isOwnSymbols ? symbolsInputValue : null,
     );
-
-    if (isOwnPassword) {
-      setGeneratedPassword('');
-      setValue('password', '');
-    }
-
-    if (!isOwnPassword) {
-      setGeneratedPassword(password);
-      setValue('password', password);
-      trigger('password');
-    }
+    setValue('password', password);
+    trigger('password');
   }, [
     currentLength,
     isUseLetters,
     isUseSymbols,
     isUseSpecialCharacters,
     caseOption,
-    isOwnPassword,
+    isOwnSymbols,
+    symbolsInputValue,
   ]);
 
   const onSubmit: SubmitHandler<CreateServiceFormFields> = async (service) => {
@@ -79,6 +72,12 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
       closeModalHandler();
     }
   };
+
+  const checkUniqueSymbols = (value: string) => {
+    const uniqueSymbols = new Set(value);
+    return uniqueSymbols.size === value.length;
+  };
+
   return (
     <form
       className='flex flex-col gap-5 w-[350px] pt-5 pb-8 px-2'
@@ -114,19 +113,13 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
             <Input
               label={'Your current password'}
               type={'text'}
-              readOnly={!isOwnPassword}
+              readOnly={true}
               maxLength={currentLength}
               // type={'password'}
               placeholder={'password'}
               autoComplete='off'
               error={errors.password?.message}
-              value={isOwnPassword ? field.value : generatedPassword}
-              onChange={(e) => {
-                if (isOwnPassword) {
-                  field.onChange(e);
-                  setGeneratedPassword(e.currentTarget.value);
-                }
-              }}
+              {...field}
             />
           );
         }}
@@ -151,7 +144,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
 
       <div className='flex gap-5'>
         <CustomCheckbox
-          disabled={isOwnPassword}
+          disabled={isOwnSymbols}
           label='Use letters'
           checked={isUseLetters}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -162,7 +155,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
 
       <div className='flex gap-5'>
         <CustomCheckbox
-          disabled={isOwnPassword}
+          disabled={isOwnSymbols}
           label='Use symbols'
           checked={isUseSymbols}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -173,7 +166,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
 
       <div className='flex gap-5'>
         <CustomCheckbox
-          disabled={isOwnPassword}
+          disabled={isOwnSymbols}
           label='Use special characters'
           checked={isUseSpecialCharacters}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -186,7 +179,7 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
         <label htmlFor='case-select'>Выберите регистр:</label>
         <select
           id='case-select'
-          disabled={isOwnPassword}
+          disabled={isOwnSymbols}
           className='bg-transparent font-bold disabled:text-gray-400'
           value={caseOption}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => setCaseOption(e.target.value)}
@@ -199,23 +192,30 @@ export default function CreateServiceForm({ closeModalHandler }: CreateServiceFo
 
       <div className='flex gap-5'>
         <CustomCheckbox
-          label='Use own password'
-          checked={isOwnPassword}
+          label='Use own symbols'
+          checked={isOwnSymbols}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setIsOwnPassword(e.target.checked)
+            setIsOwnSymbols(e.target.checked)
           }
         />
       </div>
 
-      <Button
-        disabled={
-          !isValid ||
-          isSubmitting ||
-          (isOwnPassword && generatedPassword.length !== currentLength)
-        }
-      >
-        Create
-      </Button>
+      {isOwnSymbols && (
+        <Input
+          value={symbolsInputValue}
+          placeholder='Custom symbols'
+          label='Write unique symbols'
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const value = e.target.value;
+            if (checkUniqueSymbols(value)) {
+              setSymbolsInputValue(value);
+            }
+          }}
+          type={'text'}
+        />
+      )}
+
+      <Button disabled={!isValid || isSubmitting}>Create</Button>
     </form>
   );
 }

@@ -83,5 +83,3 @@
 .container input:disabled ~ .checkmark::after {
   border-color: #b0b0b0;
 }
-
-

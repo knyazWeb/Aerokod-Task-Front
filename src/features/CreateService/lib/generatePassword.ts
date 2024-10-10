@@ -4,6 +4,7 @@ export function generatePassword(
   useSymbols: boolean,
   useSpecialCharacters: boolean,
   caseOption: 'random' | 'lowercase' | 'uppercase',
+  customSymbols: string | null,
 ): string {
   const letters = 'abcdefghijklmnopqrstuvwxyz';
   const symbols = '0123456789';
@@ -30,6 +31,8 @@ export function generatePassword(
   if (useSpecialCharacters) {
     characters += specialCharacters;
   }
+
+  if (customSymbols !== null) characters = customSymbols;
 
   if (characters.length === 0) {
     return '';

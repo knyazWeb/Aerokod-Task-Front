@@ -21,9 +21,7 @@ export default function Main() {
           setSearchValue={setSearchValue}
         />
         <div className='grid grid-cols-[100px_1fr] grid-rows-1'>
-          <Aside
-            createHandler={createHandler}
-          />
+          <Aside createHandler={createHandler} />
           <ServicesPanel searchValue={searchValue} />
         </div>
       </main>

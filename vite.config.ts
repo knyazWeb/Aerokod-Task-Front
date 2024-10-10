@@ -17,5 +17,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/Aerokod-Task-Front'
+  base: '/Aerokod-Task-Front',
 });

@@ -8,14 +8,15 @@ const initServices: ServiceI[] = initServicesString ? JSON.parse(initServicesStr
 
 export default function ServicesProvider({ children }: { children: ReactNode }) {
   const [services, setServices] = useState<ServiceI[]>(initServices);
-  const defaultProps = useMemo(() => ({
-    services: services,
-    setServices: setServices
-  }), [services]);
-  
+  const defaultProps = useMemo(
+    () => ({
+      services: services,
+      setServices: setServices,
+    }),
+    [services],
+  );
+
   return (
-    <ServicesContext.Provider value={defaultProps}>
-      {children}
-    </ServicesContext.Provider>
+    <ServicesContext.Provider value={defaultProps}>{children}</ServicesContext.Provider>
   );
 }

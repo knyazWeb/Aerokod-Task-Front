@@ -5,6 +5,7 @@
 ## Инструкция для локального запуска
 
 Запуск приложения:
+
 ```bash
 yarn
 yarn dev
@@ -14,9 +15,9 @@ npm run start
 ```
 
 ## Используемые технологии
-* ${\textsf{\color{Cyan}React}}$
-* ${\textsf{\color{RoyalBlue}Typescript}}$
-* ${\textsf{\color{RoyalBlue}Tailwind}}$
-* ${\textsf{\color{OrangeRed}React Hook Form}}$
-* ${\textsf{\color{Melon}Vite}}$
 
+- ${\textsf{\color{Cyan}React}}$
+- ${\textsf{\color{RoyalBlue}Typescript}}$
+- ${\textsf{\color{RoyalBlue}Tailwind}}$
+- ${\textsf{\color{OrangeRed}React Hook Form}}$
+- ${\textsf{\color{Melon}Vite}}$

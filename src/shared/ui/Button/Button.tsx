@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 import { cn } from '@/shared/lib';
 
+// В будущем ещё пропсы должны быть...
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 
 export default function Button({ className, children, ...props }: ButtonProps) {

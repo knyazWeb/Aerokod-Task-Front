@@ -2,7 +2,6 @@ import { Lock, Delete } from 'lucide-react';
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { Input } from '@/shared/ui';
 
-
 interface HeaderProps {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
